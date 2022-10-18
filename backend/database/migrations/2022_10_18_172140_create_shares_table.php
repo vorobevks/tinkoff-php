@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('name');
             $table->float('last_price', 10, 5);
             $table->string('currency');
+            $table->string('type');
             $table->timestamps();
         });
     }

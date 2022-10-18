@@ -28,11 +28,7 @@ class ShareService
         foreach ($favorites->getFavoriteInstruments() as $favoriteInstrument) {
             $instrumentsProvider = new InstrumentsProvider($factory);
 
-            $share = $instrumentsProvider->shareByFigi($favoriteInstrument->getFigi(), true, false);
-
-            if (!$share) {
-                continue;
-            }
+            $share = $instrumentsProvider->searchByFigi($favoriteInstrument->getFigi());
 
             $lastPricesRequest = new GetLastPricesRequest();
             $lastPricesRequest->setFigi([$share->getFigi()]);
@@ -47,7 +43,8 @@ class ShareService
                     'ticker' => $share->getTicker(),
                     'name' => $share->getName(),
                     'currency' => $share->getCurrency(),
-                    'price' => $priceInCurrency
+                    'price' => $priceInCurrency,
+                    'type' => $favoriteInstrument->getInstrumentType()
                 ];
             }
         }
@@ -66,6 +63,7 @@ class ShareService
             $share->name = $item['name'];
             $share->last_price = $item['price'];
             $share->currency = $item['currency'];
+            $share->type = $item['type'];
             $share->save();
         }
     }
