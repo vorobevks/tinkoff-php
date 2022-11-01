@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
 	libzip-dev \
 	libmcrypt-dev \
         && pecl install mcrypt-1.0.4 \
+    && pecl install grpc \
 	&& docker-php-ext-enable mcrypt \
         && docker-php-ext-install -j$(nproc) iconv mbstring mysqli pdo_mysql zip \
 	&& docker-php-ext-configure gd --with-freetype --with-jpeg \

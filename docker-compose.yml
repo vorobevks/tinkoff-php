@@ -1,16 +1,22 @@
 version: '3.1'
 services:
   db:
+    container_name: tinkoff_db
     image: mariadb
     restart: always
     command: --init-file /data/application/init.sql
     environment:
-      MYSQL_ROOT_PASSWORD: 123456
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_ROOT_HOST
     volumes:
       - ./database:/var/lib/mysql
       - ./docker/init-database.sql:/data/application/init.sql
     ports:
       - "3306:3306"
+    healthcheck:
+      test: "mysql -uroot -p$MYSQL_ROOT_PASSWORD mysql -e 'select 1;'"
+      interval: 1s
+      retries: 120
   phpmyadmin:
     image: phpmyadmin
     restart: always
@@ -19,6 +25,7 @@ services:
     ports:
       - 8080:80
   php:
+    container_name: tinkoff_php
     # у нас свой образ для PHP, указываем путь к нему и говорим что его надо собрать
     build: ./docker/php
     # этот образ будет общаться с mysql
@@ -26,7 +33,11 @@ services:
       - db
     volumes:
       - ./backend:/var/www
+    depends_on:
+      db:
+        condition: service_healthy
   nginx:
+    container_name: tinkoff_nginx
     image: nginx
     volumes:
       - ./docker/hosts:/etc/nginx/conf.d
