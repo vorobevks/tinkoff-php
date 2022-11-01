@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/get-shares', [ShareController::class, 'getAll']);
+Route::post('/subscription', [ShareController::class, 'setSubscription']);
