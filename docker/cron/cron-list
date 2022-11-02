@@ -1,0 +1,1 @@
+*/2 * * * * cd /var/www/backend && /usr/local/bin/php artisan shares:update >> /var/log/cron.log 2>&1
