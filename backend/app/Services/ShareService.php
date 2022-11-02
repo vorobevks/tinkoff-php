@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Share;
 use App\Models\Subscription;
+use Illuminate\Support\Facades\Log;
 use Metaseller\TinkoffInvestApi2\helpers\QuotationHelper;
 use Metaseller\TinkoffInvestApi2\providers\InstrumentsProvider;
 use Metaseller\TinkoffInvestApi2\TinkoffClientsFactory;
@@ -32,7 +33,7 @@ class ShareService
             $instrumentsProvider = new InstrumentsProvider($factory);
 
             $share = $instrumentsProvider->searchByFigi($favoriteInstrument->getFigi());
-            echo round($i++ / $count * 100, 1) . '%. Обновление '. $share->getName(). "\n";
+            Log::channel('cron')->info(round($i++ / $count * 100, 1) . '%. Обновление '. $share->getName());
 
             $lastPricesRequest = new GetLastPricesRequest();
             $lastPricesRequest->setFigi([$share->getFigi()]);
