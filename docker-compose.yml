@@ -12,7 +12,7 @@ services:
       - ./database:/var/lib/mysql
       - ./docker/init-database.sql:/data/application/init.sql
     ports:
-      - "3306:3306"
+      - "3310:3306"
     healthcheck:
       test: "mysql -uroot -p$MYSQL_ROOT_PASSWORD mysql -e 'select 1;'"
       interval: 1s
@@ -23,7 +23,7 @@ services:
     environment:
       - PMA_ARBITRARY=1
     ports:
-      - 8080:80
+      - 8090:80
   php:
     container_name: tinkoff_php
     # у нас свой образ для PHP, указываем путь к нему и говорим что его надо собрать
@@ -43,8 +43,8 @@ services:
       - ./docker/hosts:/etc/nginx/conf.d
       - ./backend:/var/www
     ports:
-      - "80:80"
-      - "443:443"
+      - "90:80"
+      - "444:443"
     environment:
       - NGINX_HOST=foobar.com
       - NGINX_PORT=80
