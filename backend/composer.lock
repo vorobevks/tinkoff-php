@@ -1925,12 +1925,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/vorobevks/tinkoff-invest-api-v2-php.git",
-                "reference": "63de44f542ac0ff342b35bafa4b583aa5a0bcde8"
+                "reference": "a7b683372b49c9d51d25195874725a7acba35009"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vorobevks/tinkoff-invest-api-v2-php/zipball/63de44f542ac0ff342b35bafa4b583aa5a0bcde8",
-                "reference": "63de44f542ac0ff342b35bafa4b583aa5a0bcde8",
+                "url": "https://api.github.com/repos/vorobevks/tinkoff-invest-api-v2-php/zipball/a7b683372b49c9d51d25195874725a7acba35009",
+                "reference": "a7b683372b49c9d51d25195874725a7acba35009",
                 "shasum": ""
             },
             "require": {
@@ -1970,7 +1970,7 @@
             "support": {
                 "source": "https://github.com/vorobevks/tinkoff-invest-api-v2-php/tree/main"
             },
-            "time": "2022-11-09T16:39:40+00:00"
+            "time": "2022-11-10T08:05:21+00:00"
         },
         {
             "name": "monolog/monolog",
