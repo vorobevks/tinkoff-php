@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\DTO\Users\AccountDto;
+use App\Traits\TokenTrait;
 use Metaseller\TinkoffInvestApi2\ClientConnection;
 use Tinkoff\Invest\V1\Account;
 use Tinkoff\Invest\V1\GetAccountsRequest;
@@ -10,14 +11,14 @@ use Tinkoff\Invest\V1\UsersServiceClient;
 
 class UsersService
 {
+    use TokenTrait;
+
     /**
      * @return AccountDto[]
      */
     public static function getAccounts(): array
     {
-        $token = env('TOKEN');
-
-        $userServiceClient = new UsersServiceClient(ClientConnection::getHostname(), ClientConnection::getOptions($token));
+        $userServiceClient = new UsersServiceClient(ClientConnection::getHostname(), ClientConnection::getOptions(self::getToken()));
 
         list($response, $status) = $userServiceClient->GetAccounts(new GetAccountsRequest())->wait();
 

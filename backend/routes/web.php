@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OperationsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,4 @@ Route::get('/', function () {
 });
 
 Route::get('accounts', [UsersController::class, 'getAccounts']);
+Route::get('account/{id}', [OperationsController::class, 'getPortfolio'])->name('getPortfolio');

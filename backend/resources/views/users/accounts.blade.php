@@ -10,13 +10,13 @@
         </tr>
         @foreach($accounts as $account)
         <tr>
-            <td> {{ $account->id }}</td>
-            <td> {{ $account->type }}</td>
-            <td> {{ $account->name }}</td>
-            <td> {{ $account->status }}</td>
-            <td> {{ $account->openedDate }}</td>
-            <td> {{ $account->closedDate }}</td>
-            <td> {{ $account->accessLevel }}</td>
+            <td><a href="{{ route('getPortfolio', $account->getId()) }}">{{ $account->getId() }}</a></td>
+            <td> {{ $account->getType() }}</td>
+            <td> {{ $account->getName() }}</td>
+            <td> {{ $account->getStatus() }}</td>
+            <td> {{ $account->getOpenedDate() }}</td>
+            <td> {{ $account->getClosedDate() }}</td>
+            <td> {{ $account->getAccessLevel() }}</td>
         </tr>
         @endforeach
 

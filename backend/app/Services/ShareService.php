@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Models\Share;
 use App\Models\Subscription;
+use App\Traits\TokenTrait;
 use Illuminate\Support\Facades\Log;
+use Metaseller\TinkoffInvestApi2\exceptions\InstrumentNotFoundException;
 use Metaseller\TinkoffInvestApi2\helpers\QuotationHelper;
 use Metaseller\TinkoffInvestApi2\providers\InstrumentsProvider;
 use Metaseller\TinkoffInvestApi2\TinkoffClientsFactory;
@@ -16,11 +18,13 @@ use Tinkoff\Invest\V1\LastPriceInstrument;
 
 class ShareService
 {
+    use TokenTrait;
+
     public static function updatePrices()
     {
-        $token = env('TOKEN');
 
-        $factory = TinkoffClientsFactory::create($token);
+
+        $factory = TinkoffClientsFactory::create(self::getToken());
 
         $instrumentsRequest = new InstrumentsRequest();
         $instrumentsRequest->setInstrumentStatus(InstrumentStatus::INSTRUMENT_STATUS_ALL);
@@ -75,6 +79,20 @@ class ShareService
             $result[] = (new LastPriceInstrument())->setFigi($item->share->figi);
         }
         return $result;
+    }
+
+    /**
+     * @throws InstrumentNotFoundException
+     */
+    public static function getNameByFigi(string $figi): string
+    {
+        $factory = TinkoffClientsFactory::create(self::getToken());
+
+        $instrumentsProvider = new InstrumentsProvider($factory);
+
+        $share = $instrumentsProvider->searchByFigi($figi);
+
+        return $share->getName();
     }
 
 }
