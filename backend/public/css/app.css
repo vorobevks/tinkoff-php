@@ -1,0 +1,11 @@
+.table {
+    margin: auto;
+    border: 1px solid black;
+    border-collapse: collapse; /* Убираем двойные линии между ячейками */
+}
+
+TD, TH {
+    padding: 7px; /* Поля вокруг содержимого таблицы */
+    border: 1px solid black; /* Параметры рамки */
+    text-align: center;
+}
